@@ -5,17 +5,14 @@
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = matchMedia('(max-width:680px)').matches;
 
-  // Intro loader
   const preloader = $('#preloader');
   addEventListener('load', () => setTimeout(() => preloader?.classList.add('hide'), reducedMotion ? 0 : 850));
   setTimeout(() => preloader?.classList.add('hide'), 2600);
 
-  // Navigation state
   const nav = $('#nav');
   const updateNav = () => nav?.classList.toggle('scrolled', scrollY > 32);
   addEventListener('scroll', updateNav, { passive: true }); updateNav();
 
-  // Scroll reveals
   const reveals = $$('.reveal');
   if ('IntersectionObserver' in window && !reducedMotion) {
     const io = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -24,14 +21,12 @@
     reveals.forEach(el => io.observe(el));
   } else reveals.forEach(el => el.classList.add('in'));
 
-  // Smooth anchor clicks
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const target = $(a.getAttribute('href'));
     if (!target) return;
     e.preventDefault(); target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
   }));
 
-  // Layer state + UI
   const layerData = [
     ['PERCEPTION', 'SEE', 'READING THE WORLD', '37%'],
     ['REASONING', 'THINK', 'BUILDING CONTEXT', '52%'],
@@ -48,23 +43,20 @@
     document.documentElement.style.setProperty('--active-layer', index);
   }));
 
-  // Local system clock
   const clock = $('#clock');
   const tick = () => { if (clock) clock.textContent = new Date().toLocaleTimeString([], { hour12:false }); };
   tick(); setInterval(tick, 1000);
 
-  // Live telemetry bars
   const bars = $('#bars');
   if (bars) {
     const vals = Array.from({length:36}, () => 18 + Math.random()*70);
     vals.forEach((v,i) => { const b=document.createElement('i'); b.className='bar'; b.style.height=`${v}%`; b.style.animationDelay=`${i*-55}ms`; bars.appendChild(b); });
     setInterval(() => {
-      $$('.bar', bars).forEach((b,i) => b.style.height = `${18 + Math.random()*70}%`);
+      $$('.bar', bars).forEach((b) => b.style.height = `${18 + Math.random()*70}%`);
       const throughput = $('#throughput'); if (throughput) throughput.textContent = `${(.7 + Math.random()*.35).toFixed(2)} PFLOPS`;
     }, 1800);
   }
 
-  // SIGNAL FIELD: particles are pulled toward the intelligence core.
   const signalCanvas = $('#signalCanvas');
   const signalBox = signalCanvas?.closest('.signal-box');
   if (signalCanvas && signalBox) {
@@ -88,16 +80,15 @@
       raf=requestAnimationFrame(draw);
     };
     addEventListener('resize',resize);resize(); reducedMotion?null:draw();
-    if(reducedMotion){draw=function(){};ctx.clearRect(0,0,w,h)}
+    if(reducedMotion){ctx.clearRect(0,0,w,h)}
     addEventListener('pagehide',()=>cancelAnimationFrame(raf));
   }
 
-  // HERO: lightweight 3D point sphere / intelligence field.
   const heroCanvas=$('#heroCanvas'); const hero=heroCanvas?.closest('.hero');
   if(heroCanvas && hero){
     const ctx=heroCanvas.getContext('2d'); let w=0,h=0,pts=[],rx=0,ry=0,tx=0,ty=0,raf=0;
     const count=isMobile?500:1100;
-    const makePoints=()=>Array.from({length:count},()=>{const u=Math.random()*2-1,a=Math.random()*Math.PI*2,s=Math.sqrt(1-u*u),r=.72+Math.random()*.32;return{x:r*s*Math.cos(a),y:r*u,z:r*s*Math.sin(a),size:.35+Math.random()*1.25,phase:Math.random()*6.28}});
+    const makePoints=()=>Array.from({length:count},()=>{const u=Math.random()*2-1,a=Math.random()*Math.PI*2,s=Math.sqrt(1-u*u),r=.72+Math.random()*.32;return{x:r*s*Math.cos(a),y:r*u,z:r*s*Math.sin(a),size:.35+Math.random()*1.25}});
     const resize=()=>{const d=Math.min(devicePixelRatio||1,2);w=hero.clientWidth;h=hero.clientHeight;heroCanvas.width=w*d;heroCanvas.height=h*d;ctx.setTransform(d,0,0,d,0,0);if(!pts.length)pts=makePoints()};
     const draw=()=>{
       ctx.clearRect(0,0,w,h); const ox=w*.76+rx*45, oy=h*.47+ry*35, scale=Math.min(w,h)*.43; const cosY=Math.cos(rx*.35),sinY=Math.sin(rx*.35),cosX=Math.cos(ry*.25),sinX=Math.sin(ry*.25);
@@ -105,7 +96,6 @@
       for(const p of pts){let x=p.x*cosY-p.z*sinY,z=p.x*sinY+p.z*cosY;let y=p.y*cosX-z*sinX;z=p.y*sinX+z*cosX;const depth=(z+1.35)/2.7;projected.push({x:ox+x*scale,y:oy+y*scale,z,alpha:.12+Math.max(0,depth)*.7,size:p.size*(.55+depth*.8)})}
       projected.sort((a,b)=>a.z-b.z);
       for(let i=0;i<projected.length;i++){const p=projected[i];ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(198,204,255,${p.alpha})`;ctx.fill();if(i%7===0){const near=projected[i+1];if(near&&Math.hypot(p.x-near.x,p.y-near.y)<28){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(near.x,near.y);ctx.strokeStyle=`rgba(145,158,255,${Math.min(p.alpha,.13)})`;ctx.lineWidth=.45;ctx.stroke()}}}
-      // orbital ellipses
       ctx.save();ctx.translate(ox,oy);ctx.rotate(-.25);ctx.scale(1,.34);ctx.beginPath();ctx.arc(0,0,scale*1.03,0,Math.PI*2);ctx.strokeStyle='rgba(161,171,255,.18)';ctx.lineWidth=1;ctx.stroke();ctx.scale(1.6,1);ctx.rotate(1.15);ctx.beginPath();ctx.arc(0,0,scale*.92,0,Math.PI*2);ctx.strokeStyle='rgba(161,171,255,.10)';ctx.stroke();ctx.restore();
       if(!reducedMotion){rx+=(tx-rx)*.018;ry+=(ty-ry)*.018;raf=requestAnimationFrame(draw)}
     };
@@ -113,7 +103,6 @@
     addEventListener('resize',resize);resize();draw();addEventListener('pagehide',()=>cancelAnimationFrame(raf));
   }
 
-  // Cursor + magnetic controls
   const cursorDot=$('#cursor-dot'),cursorRing=$('#cursor-ring');
   if(finePointer&&cursorDot&&cursorRing&&!reducedMotion){
     document.body.classList.add('cursor-ready');let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
@@ -123,17 +112,14 @@
     $$('.interactive').forEach(el=>{el.addEventListener('pointerenter',()=>cursorRing.classList.add('big'));el.addEventListener('pointerleave',()=>cursorRing.classList.remove('big'))});
   }
 
-  // 3D tilt cards
   if(finePointer&&!reducedMotion){
     $$('.tilt-card').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(900px) rotateX(${y*-4}deg) rotateY(${x*5}deg) translateY(-7px)`;card.style.setProperty('--mx',`${x*100}%`);card.style.setProperty('--my',`${y*100}%`)}));
     $$('.tilt-card').forEach(card=>card.addEventListener('pointerleave',()=>card.style.transform=''));
   }
 
-  // Architecture map follows pointer subtly
   const map=$('.architecture-map');
   if(map&&finePointer&&!reducedMotion)map.addEventListener('pointermove',e=>{const r=map.getBoundingClientRect();map.style.setProperty('--px',`${(e.clientX-r.left)/r.width*100}%`);map.style.setProperty('--py',`${(e.clientY-r.top)/r.height*100}%`)});
 
-  // Lab case-study modal
   const labModal=$('#labModal');
   const modalData={
     ORBIT:{tag:'01 — AUTONOMY',body:'Coordinated intelligence for complex environments. ORBIT explores agents that divide work, negotiate state and adapt their execution path as conditions change.',s1:'04',s2:'ADAPTIVE',s3:'24/7'},
@@ -145,3 +131,9 @@
   $$('[data-close-modal]').forEach(el=>el.addEventListener('click',()=>{labModal?.classList.remove('open');labModal?.setAttribute('aria-hidden','true');document.body.style.overflow=''}));
   addEventListener('keydown',e=>{if(e.key==='Escape'&&labModal?.classList.contains('open')){$('[data-close-modal]')?.click()}});
 })();
+
+// Load the authentication client only on the public homepage. Supabase's publishable key is safe for browser use.
+if (location.pathname === '/' || location.pathname.endsWith('/index.html')) {
+  const load = src => new Promise((resolve, reject) => { const s=document.createElement('script'); s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s); });
+  load('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2').then(()=>load('auth-config.js')).then(()=>load('auth.js')).catch(()=>{});
+}
