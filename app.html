@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#04050a">
+  <meta name="description" content="NEXORA — AI intelligence workspace for research, analysis, creation and building.">
+  <title>NEXORA — Command Center</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="app-workspace.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="workspace-page">
+  <div class="workspace-noise"></div>
+  <header class="workspace-topbar">
+    <a class="workspace-brand" href="index.html"><i class="workspace-mark"></i><span>NEXORA</span></a>
+    <div class="workspace-status"><i></i> INTELLIGENCE ONLINE</div>
+    <div class="workspace-user">
+      <button id="userMenuButton" class="user-button" type="button" aria-expanded="false">
+        <span id="userAvatar" class="user-avatar">N</span><span id="userName">USER</span><span>⌄</span>
+      </button>
+      <div id="userMenu" class="user-menu" hidden>
+        <a href="account.html">ACCOUNT</a>
+        <button id="logoutBtn" type="button">LOG OUT</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="workspace-shell">
+    <aside class="workspace-sidebar">
+      <div class="sidebar-section-label">WORKSPACE</div>
+      <button class="side-link active" data-mode="chat"><span>◈</span> COMMAND CENTER</button>
+      <button class="side-link" data-mode="research"><span>⌁</span> RESEARCH</button>
+      <button class="side-link" data-mode="files"><span>▤</span> FILES</button>
+      <button class="side-link" data-mode="create"><span>✦</span> CREATE</button>
+      <button class="side-link" data-mode="build"><span>◇</span> BUILD</button>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section-label">PROJECTS</div>
+      <button class="project-link"><i></i> New project</button>
+      <button class="project-link muted"><i></i> Coming soon</button>
+      <div class="sidebar-bottom">
+        <div class="mini-stat"><span>CONTEXT WINDOW</span><b>1M+</b></div>
+        <div class="mini-stat"><span>ENGINE</span><b>GPT-5.6</b></div>
+      </div>
+    </aside>
+
+    <main class="workspace-main">
+      <div class="workspace-hero" id="workspaceHero">
+        <div class="workspace-eyebrow">NEXORA / COMMAND CENTER</div>
+        <h1>WHAT ARE YOU<br><span>WORKING ON?</span></h1>
+        <p>Research it. Analyze it. Create it. Build it.</p>
+      </div>
+
+      <section id="chatSection" class="chat-section">
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="chatForm" class="composer">
+          <div class="composer-glow"></div>
+          <textarea id="promptInput" rows="1" maxlength="12000" placeholder="Ask NEXORA anything..." aria-label="Ask NEXORA"></textarea>
+          <div class="composer-bottom">
+            <div class="composer-hints"><span>REAL-TIME AI</span><span>SHIFT + ENTER FOR NEW LINE</span></div>
+            <button id="sendButton" class="send-button" type="submit"><span>SEND ↗</span><i class="send-spinner" hidden></i></button>
+          </div>
+        </form>
+      </section>
+
+      <section class="quick-actions">
+        <button class="quick-card" data-prompt="Analyze this problem and break it into the most important decisions, risks, and next actions."><span>01</span><strong>ANALYZE</strong><small>Break complexity into signal.</small><b>↗</b></button>
+        <button class="quick-card" data-prompt="Help me research this topic. Give me a structured plan, the key questions to investigate, and what evidence I should look for."><span>02</span><strong>RESEARCH</strong><small>Turn a question into a research path.</small><b>↗</b></button>
+        <button class="quick-card" data-prompt="Help me create a strong first draft for this idea. Ask only the most important clarifying questions, then propose a polished structure."><span>03</span><strong>CREATE</strong><small>Turn intent into output.</small><b>↗</b></button>
+        <button class="quick-card" data-prompt="Help me turn this idea into a concrete product. Define the user, core workflow, features, architecture, and a practical first version."><span>04</span><strong>BUILD</strong><small>Turn an idea into a system.</small><b>↗</b></button>
+      </section>
+
+      <section class="mode-panel" id="modePanel" hidden>
+        <div class="mode-header"><div><span class="workspace-eyebrow">NEXORA / MODULE</span><h2 id="modeTitle">RESEARCH</h2></div><button id="closeMode" type="button">CLOSE ×</button></div>
+        <p id="modeDescription"></p>
+        <button id="modeLaunch" class="mode-launch" type="button">START MODULE ↗</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth-config.js"></script>
+  <script src="workspace.js" defer></script>
+</body>
+</html>
