@@ -1,0 +1,23 @@
+/* NEXORA account navigation */
+.auth-nav{display:flex;align-items:center;gap:10px;position:relative;font:10px 'Space Mono',monospace;letter-spacing:.1em}
+.auth-nav a,.auth-nav button{font:10px 'Space Mono',monospace;letter-spacing:.1em;text-decoration:none;white-space:nowrap}
+.auth-login{color:#aeb5c9;padding:10px 12px;border-radius:999px;transition:.25s}
+.auth-login:hover{color:#fff;background:#ffffff08}
+.auth-signup{color:#08090d;background:#f2f3f8;border:1px solid #f2f3f8;padding:10px 14px;border-radius:999px;transition:.3s}
+.auth-signup:hover{transform:translateY(-2px);box-shadow:0 14px 35px #0009}
+.auth-account-trigger{border:1px solid #30374c;background:#080c14;color:#dfe3f5;padding:10px 13px;border-radius:999px;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:9px}
+.auth-account-trigger:hover,.auth-account-trigger[aria-expanded="true"]{border-color:#68739c;background:#0d1220}
+.auth-avatar-mini{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#dfe2ff;color:#080a10;font-size:10px;font-weight:800;letter-spacing:0}
+.auth-chevron{font-size:8px;opacity:.7}
+.auth-user-menu{position:absolute;right:0;top:calc(100% + 12px);width:210px;padding:8px;border:1px solid #252c40;border-radius:16px;background:#090d15f5;backdrop-filter:blur(24px);box-shadow:0 24px 70px #000b;display:none;z-index:120}
+.auth-user-menu.open{display:grid}
+.auth-user-meta{padding:11px 11px 13px;border-bottom:1px solid #202638;margin-bottom:5px}
+.auth-user-name{color:#f5f6fb;font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auth-user-email{color:#71798e;font:8px 'Space Mono';letter-spacing:.05em;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auth-user-menu a,.auth-user-menu button{width:100%;padding:10px 11px;border:0;background:transparent;color:#aeb5c9;text-align:left;border-radius:10px;cursor:pointer}
+.auth-user-menu a:hover,.auth-user-menu button:hover{background:#ffffff08;color:#fff}
+.auth-user-menu .auth-logout{color:#ffb8c4}
+.auth-user-menu .auth-logout:hover{background:#35151f}
+.auth-nav-fallback{display:flex;align-items:center;gap:8px}
+@media(max-width:980px){.auth-nav{gap:5px}.auth-nav .auth-login{padding:9px 8px}.auth-nav .auth-signup{padding:9px 11px}}
+@media(max-width:680px){.auth-nav .auth-login{display:none}.auth-user-menu{right:-2px}.auth-nav-fallback .auth-login{display:none}}
