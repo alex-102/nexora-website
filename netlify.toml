@@ -9,7 +9,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://fdupvvlircdnpimrqgwj.supabase.co; connect-src 'self' https://fdupvvlircdnpimrqwj.co wss://fdupvvlircdnpimrqgj.supabase.co; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://fdupvvlircdnpimrqwgj.supabase.co; connect-src 'self' https://fdupvvlircdnpimrqwgj.supabase.co wss://fdupvvlircdnpimrqwgj.supabase.co; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'"
 
 [[headers]]
   for = "/*.css"
