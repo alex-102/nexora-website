@@ -1,0 +1,34 @@
+/* NEXORA site polish fixes */
+
+/* Lab cards: prevent browser-default button rendering and improve hierarchy. */
+.lab-section{scroll-margin-top:110px}
+.lab-grid{align-items:stretch}
+.lab-card{min-height:420px;padding:32px;display:flex;flex-direction:column}
+.lab-card h3{margin:118px 0 8px;line-height:.9}
+.lab-card p{padding-right:10px;padding-bottom:58px}
+.lab-open{appearance:none;-webkit-appearance:none;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#eef0f7!important;display:inline-flex;align-items:center;gap:8px;padding:10px 0;margin:0;font:9px 'Space Mono',monospace;letter-spacing:.12em;line-height:1;min-height:34px;text-align:left;cursor:pointer}
+.lab-open:hover{color:#fff!important;text-shadow:0 0 18px #aeb8ff55}
+.lab-open span{color:var(--accent);margin-left:0}
+
+/* Keep content clear of the fixed navigation when jumping to sections. */
+#technology,#architecture,#capabilities,#lab,#system,#contact{scroll-margin-top:100px}
+
+/* Auth navigation injected by auth.js. */
+.auth-nav{display:flex;align-items:center;gap:10px}
+.auth-nav a,.auth-nav button{font:10px 'Space Mono',monospace;letter-spacing:.1em;border:1px solid var(--line2);border-radius:999px;padding:10px 14px;background:rgba(7,10,16,.55);color:#dfe3f3;cursor:pointer;transition:.3s}
+.auth-nav a:hover,.auth-nav button:hover{border-color:#707ca9;box-shadow:0 0 30px #8492ff18;background:#0b0f19}
+.auth-nav .auth-signup{background:#f2f3f8;color:#08090d;border-color:#f2f3f8}
+.auth-nav .auth-signup:hover{background:#fff;border-color:#fff}
+.auth-nav [hidden]{display:none!important}
+
+@media(max-width:1050px){
+  .auth-nav a,.auth-nav button{font-size:9px;padding:9px 12px}
+}
+@media(max-width:680px){
+  .auth-nav{gap:6px}
+  .auth-nav a,.auth-nav button{font-size:8px;padding:8px 10px}
+  .lab-card{min-height:350px;padding:24px}
+  .lab-card h3{font-size:46px;margin-top:105px}
+  .lab-card p{padding-bottom:52px}
+  .lab-open{right:24px;bottom:20px;font-size:8px}
+}
